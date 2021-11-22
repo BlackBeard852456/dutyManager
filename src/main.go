@@ -1,6 +1,7 @@
 package main
 
 import (
+	"amolixs/duty"
 	"database/sql"
 	"fmt"
 	"log"
@@ -20,7 +21,7 @@ func printLogo() {
 func handleMenu(db *sql.DB, opts []wmenu.Opt) {
 	switch opts[0].Value {
 	case 0:
-		fmt.Printn("Ajout d'un nouveau devoir")
+		fmt.Println("Ajout d'un nouveau devoir")
 	case 1:
 		fmt.Println("Recherche d'un devoir")
 	case 2:
@@ -43,6 +44,7 @@ func main() {
 	checkErr(err)
 	defer db.Close()
 	printLogo()
+	duty.CreateNewDuty()
 	menu := wmenu.NewMenu(">> ")
 	menu.Action(func(opts []wmenu.Opt) error { handleMenu(db, opts); return nil })
 	menu.Option("Ajouter un devoir", 0, true, nil)
