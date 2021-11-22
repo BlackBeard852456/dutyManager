@@ -28,6 +28,13 @@ func handleMenu(opts []wmenu.Opt) {
 	}
 }
 
+// Fonction qui permet de détecter les erreurs
+func checkErr(err error) {
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 // Fonction principal du programme
 func main() {
 	printLogo()
