@@ -6,6 +6,7 @@ import (
 	"database/sql"
 	"fmt"
 	"os"
+	"strconv"
 )
 
 type Duty struct {
@@ -22,9 +23,21 @@ func CreateNewDuty() Duty {
 	dutyName, _ := reader.ReadString('\n')
 	fmt.Print("Entre l'intitulé du devoir : ")
 	dutyEntilted, _ := reader.ReadString('\n')
-	fmt.Print("Entre la matière du devoir : ")
-	dutyMatter, _ := reader.ReadString('\n')
+	dutyMatter := mattersManagement()
 	return Duty{name: dutyName, entilted: dutyEntilted, matter: dutyMatter}
+}
+
+// Fonction qui gère le choix de la matière
+func mattersManagement() string {
+	scanner := bufio.NewScanner(os.Stdin)
+	matters := [5]string{"Francais", "COMMU", "Bureautique", "Programmation", "Anglais"}
+	for i, matter := range matters {
+		fmt.Println(i+1, "-", matter)
+	}
+	fmt.Print("Choix matière : ")
+	scanner.Scan()
+	choiceMatter, _ := strconv.Atoi(scanner.Text())
+	return matters[choiceMatter-1]
 }
 
 // Fonction qui permet d'ajouter le devoir dans la bdd

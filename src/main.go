@@ -5,10 +5,8 @@ import (
 	"amolixs/menu"
 	"database/sql"
 	"fmt"
-	"log"
-
-	"github.com/dixonwille/wmenu/v5"
 	_ "github.com/mattn/go-sqlite3"
+	"log"
 )
 
 // Fonction qui permet d'afficher le logo
@@ -19,18 +17,11 @@ func printLogo() {
 }
 
 // Fonction qui permet de gérer le choix des options du menu
-func handleMenu(db *sql.DB, opts []wmenu.Opt) {
-	switch opts[0].Value {
-	case 0:
+func handleMenu(db *sql.DB, choiceMenu int) {
+	switch choiceMenu {
+	case 1:
 		newDuty := duty.CreateNewDuty()
 		duty.AddDutyInTheDatabase(db, newDuty)
-		break
-	case 1:
-		fmt.Println("Recherche d'un devoir")
-	case 2:
-		fmt.Println("Mise à jour d'un devoir")
-	case 3:
-		fmt.Println("Supression d'un devoir")
 	}
 }
 
@@ -49,5 +40,5 @@ func main() {
 	printLogo()
 	menu.PrintMenu()
 	choiceMenu := menu.GetChoiceOption()
-	fmt.Println(choiceMenu)
+	handleMenu(db, choiceMenu)
 }
