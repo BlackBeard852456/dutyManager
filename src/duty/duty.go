@@ -69,3 +69,10 @@ func SearchDutyInTheDatabase(databaseConnection *sql.DB, nameDuty string) []Duty
 	}
 	return dutys
 }
+
+// Affiche des devoirs
+func DisplayDutys(dutys []Duty) {
+	for _, duty := range dutys {
+		fmt.Print(duty.name)
+	}
+}

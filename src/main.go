@@ -23,10 +23,8 @@ func handleMenu(db *sql.DB, choiceMenu int) {
 		newDuty := duty.CreateNewDuty()
 		duty.AddDutyInTheDatabase(db, newDuty)
 	case 2:
-		var dutys []duty.Duty = duty.SearchDutyInTheDatabase(db, "A")
-		for i := 0; i < len(dutys); i++ {
-			fmt.Println(dutys[i].name)
-		}
+		var dutys []duty.Duty = duty.SearchDutyInTheDatabase(db, "b")
+		duty.DisplayDutys(dutys)
 	}
 }
 
