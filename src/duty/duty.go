@@ -5,6 +5,7 @@ import (
 	"bufio"
 	"database/sql"
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 )
@@ -45,4 +46,26 @@ func AddDutyInTheDatabase(databaseConnection *sql.DB, newDuty Duty) {
 	stmt, _ := databaseConnection.Prepare("INSERT INTO duty (id, name, entilted, matter) VALUES (?, ?, ?, ?)")
 	stmt.Exec(nil, newDuty.name, newDuty.entilted, newDuty.matter)
 	defer stmt.Close()
+}
+
+// Recherche un devoir dans la bdd
+func SearchDutyInTheDatabase(databaseConnection *sql.DB, nameDuty string) []Duty {
+	rows, err := databaseConnection.Query("SELECT * FROM duty WHERE name LIKE " + "'" + nameDuty + "%'")
+	defer rows.Close()
+
+	err = rows.Err()
+	if err != nil {
+		log.Fatal(err)
+	}
+	dutys := make([]Duty, 0)
+
+	for rows.Next() {
+		ourDuty := Duty{}
+		err = rows.Scan(&ourDuty.id, &ourDuty.name, &ourDuty.entilted, &ourDuty.matter)
+		if err != nil {
+			log.Fatal(err)
+		}
+		dutys = append(dutys, ourDuty)
+	}
+	return dutys
 }
