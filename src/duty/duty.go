@@ -75,8 +75,8 @@ func DisplayDutys(dutys []Duty) {
 	for _, duty := range dutys {
 		fmt.Println("#############################")
 		fmt.Println("Id => ", duty.id)
-		fmt.Print("Nom => ", duty.name)
-		fmt.Print("Intitulé => ", duty.entilted)
+		fmt.Println("Nom => ", duty.name)
+		fmt.Println("Intitulé => ", duty.entilted)
 		fmt.Println("Matière => ", duty.matter)
 	}
 }
@@ -85,8 +85,8 @@ func DisplayDutys(dutys []Duty) {
 func DisplayDuty(duty Duty) {
 	fmt.Println("#############################")
 	fmt.Println("Id => ", duty.id)
-	fmt.Print("Nom => ", duty.name)
-	fmt.Print("Intitulé => ", duty.entilted)
+	fmt.Println("Nom => ", duty.name)
+	fmt.Println("Intitulé => ", duty.entilted)
 	fmt.Println("Matière => ", duty.matter)
 }
 
@@ -109,9 +109,16 @@ func GetDutyById(databaseConnection *sql.DB, idDuty string) Duty {
 }
 
 // Permet de mettre à jour un devoir existant
-//func UpdateDuty(dutyToUpdate Duty) Duty {
-//	scanner := bufio.NewScanner(os.Stdin)
-//	fmt.Printf("Nom (présent) : %s", dutyToUpdate.name)
-//	scanner.Scan()
-//	newName := scanner.Text()
-//}
+func UpdateDuty(dutyToUpdate Duty) Duty {
+	scanner := bufio.NewScanner(os.Stdin)
+	fmt.Printf("Nom (actuel) : %s >", dutyToUpdate.name)
+	scanner.Scan()
+	newName := scanner.Text()
+	fmt.Printf("Intitulé (actuel) : %s >", dutyToUpdate.entilted)
+	scanner.Scan()
+	newEntilted := scanner.Text()
+	fmt.Printf("Matière (actuel) : %s >", dutyToUpdate.matter)
+	scanner.Scan()
+	newMatter := scanner.Text()
+	return Duty{id: dutyToUpdate.id, name: newName, entilted: newEntilted, matter: newMatter}
+}
