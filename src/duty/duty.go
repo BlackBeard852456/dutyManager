@@ -44,8 +44,8 @@ func mattersManagement() string {
 // Fonction qui permet d'ajouter le devoir dans la bdd
 func AddDutyInTheDatabase(databaseConnection *sql.DB, newDuty Duty) {
 	stmt, _ := databaseConnection.Prepare("INSERT INTO duty (id, name, entilted, matter) VALUES (?, ?, ?, ?)")
-	stmt.Exec(nil, newDuty.name, newDuty.entilted, newDuty.matter)
 	defer stmt.Close()
+	stmt.Exec(nil, newDuty.name, newDuty.entilted, newDuty.matter)
 }
 
 // Recherche un devoir dans la bdd
