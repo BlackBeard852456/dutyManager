@@ -35,6 +35,13 @@ func handleMenu(db *sql.DB, choiceMenu int) {
 		searchInput := scanner.Text()
 		var dutys []duty.Duty = duty.SearchDutyInTheDatabase(db, searchInput)
 		duty.DisplayDutys(dutys)
+	case 3:
+		scanner := bufio.NewScanner(os.Stdin)
+		fmt.Print("Entre l'id du devoir à mettre à jour : ")
+		scanner.Scan()
+		dutyIdToUpdate := scanner.Text()
+		currentDuty := duty.GetDutyById(db, dutyIdToUpdate)
+		duty.DisplayDuty(currentDuty)
 	case 4:
 		scanner := bufio.NewScanner(os.Stdin)
 		fmt.Print("Entre l'id du devoir à supprimer : ")

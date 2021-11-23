@@ -81,9 +81,37 @@ func DisplayDutys(dutys []Duty) {
 	}
 }
 
+// Affiche un devoir
+func DisplayDuty(duty Duty) {
+	fmt.Println("#############################")
+	fmt.Println("Id => ", duty.id)
+	fmt.Print("Nom => ", duty.name)
+	fmt.Print("Intitulé => ", duty.entilted)
+	fmt.Println("Matière => ", duty.matter)
+}
+
 // Supprime un devoir dans la bdd grace a son identifiant
 func DeleteDutyPerIdInTheDatabase(databaseConnection *sql.DB, idDuty int) {
 	stmt, _ := databaseConnection.Prepare("DELETE FROM duty WHERE id = ?")
 	stmt.Exec(idDuty)
 	defer stmt.Close()
 }
+
+// Permet de récupérer un devoir grace a son identifiant
+func GetDutyById(databaseConnection *sql.DB, idDuty string) Duty {
+	rows, _ := databaseConnection.Query("SELECT * FROM duty WHERE id = '" + idDuty + "'")
+	defer rows.Close()
+	dutyRetrieve := Duty{}
+	for rows.Next() {
+		rows.Scan(&dutyRetrieve.id, &dutyRetrieve.name, &dutyRetrieve.entilted, &dutyRetrieve.matter)
+	}
+	return dutyRetrieve
+}
+
+// Permet de mettre à jour un devoir existant
+//func UpdateDuty(dutyToUpdate Duty) Duty {
+//	scanner := bufio.NewScanner(os.Stdin)
+//	fmt.Printf("Nom (présent) : %s", dutyToUpdate.name)
+//	scanner.Scan()
+//	newName := scanner.Text()
+//}
