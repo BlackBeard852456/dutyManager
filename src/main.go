@@ -3,10 +3,12 @@ package main
 import (
 	"amolixs/duty"
 	"amolixs/menu"
+	"bufio"
 	"database/sql"
 	"fmt"
 	_ "github.com/mattn/go-sqlite3"
 	"log"
+	"os"
 )
 
 // Fonction qui permet d'afficher le logo
@@ -23,7 +25,11 @@ func handleMenu(db *sql.DB, choiceMenu int) {
 		newDuty := duty.CreateNewDuty()
 		duty.AddDutyInTheDatabase(db, newDuty)
 	case 2:
-		var dutys []duty.Duty = duty.SearchDutyInTheDatabase(db, "b")
+		scanner := bufio.NewScanner(os.Stdin)
+		fmt.Print("Entrez des(un) devoir(s) à rechercher : ")
+		scanner.Scan()
+		searchInput := scanner.Text()
+		var dutys []duty.Duty = duty.SearchDutyInTheDatabase(db, searchInput)
 		duty.DisplayDutys(dutys)
 	}
 }

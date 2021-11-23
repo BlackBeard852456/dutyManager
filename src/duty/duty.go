@@ -73,6 +73,10 @@ func SearchDutyInTheDatabase(databaseConnection *sql.DB, nameDuty string) []Duty
 // Affiche des devoirs
 func DisplayDutys(dutys []Duty) {
 	for _, duty := range dutys {
-		fmt.Print(duty.name)
+		fmt.Println("#############################")
+		fmt.Println("Id => ", duty.id)
+		fmt.Print("Nom => ", duty.name)
+		fmt.Print("Intitulé => ", duty.entilted)
+		fmt.Println("Matière => ", duty.matter)
 	}
 }
