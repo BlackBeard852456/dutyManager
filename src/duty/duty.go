@@ -122,3 +122,10 @@ func UpdateDuty(dutyToUpdate Duty) Duty {
 	newMatter := scanner.Text()
 	return Duty{id: dutyToUpdate.id, name: newName, entilted: newEntilted, matter: newMatter}
 }
+
+// Met à jour un devoir dans la bdd
+func UpdateDutyInTheDatabase(databaseConnection *sql.DB, newDuty Duty) {
+	stmt, _ := databaseConnection.Prepare("UPDATE duty set name = ?, entilted = ?, matter = ? WHERE id = ?")
+	defer stmt.Close()
+	stmt.Exec(newDuty.name, newDuty.entilted, newDuty.matter, newDuty.id)
+}
