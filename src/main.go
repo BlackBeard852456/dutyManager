@@ -3,16 +3,20 @@ package main
 import (
 	"amolixs/duty"
 	"amolixs/menu"
+	"amolixs/utils"
 	"bufio"
 	"database/sql"
 	"fmt"
-	_ "github.com/mattn/go-sqlite3"
 	"log"
 	"os"
+	"strconv"
+
+	_ "github.com/mattn/go-sqlite3"
 )
 
 // Fonction qui permet d'afficher le logo
 func printLogo() {
+	utils.ClearConsole()
 	fmt.Println("##########################")
 	fmt.Println("Duty Manager")
 	fmt.Println("##########################")
@@ -31,6 +35,12 @@ func handleMenu(db *sql.DB, choiceMenu int) {
 		searchInput := scanner.Text()
 		var dutys []duty.Duty = duty.SearchDutyInTheDatabase(db, searchInput)
 		duty.DisplayDutys(dutys)
+	case 4:
+		scanner := bufio.NewScanner(os.Stdin)
+		fmt.Print("Entre l'id du devoir à supprimer : ")
+		scanner.Scan()
+		idDutyToDelete, _ := strconv.Atoi(scanner.Text())
+		duty.DeleteDutyPerIdInTheDatabase(db, idDutyToDelete)
 	}
 }
 
@@ -49,5 +59,6 @@ func main() {
 	printLogo()
 	menu.PrintMenu()
 	choiceMenu := menu.GetChoiceOption()
+	utils.ClearConsole()
 	handleMenu(db, choiceMenu)
 }

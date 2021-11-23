@@ -80,3 +80,10 @@ func DisplayDutys(dutys []Duty) {
 		fmt.Println("Matière => ", duty.matter)
 	}
 }
+
+// Supprime un devoir dans la bdd grace a son identifiant
+func DeleteDutyPerIdInTheDatabase(databaseConnection *sql.DB, idDuty int) {
+	stmt, _ := databaseConnection.Prepare("DELETE FROM duty WHERE id = ?")
+	stmt.Exec(idDuty)
+	defer stmt.Close()
+}
