@@ -3,6 +3,7 @@ package utils
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"time"
@@ -26,5 +27,12 @@ func CreateProgressBar(description string) {
 	for i := 0; i < 100; i++ {
 		bar.Add(1)
 		time.Sleep(10 * time.Millisecond)
+	}
+}
+
+// Permet de checker une erreur
+func checkError(err error) {
+	if err != nil {
+		log.Fatal(err)
 	}
 }
