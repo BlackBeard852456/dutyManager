@@ -1,4 +1,4 @@
-// Package qui contient toutes les petites fonctions utiles au programme
+// Package utils Package qui contient toutes les petites fonctions utiles au programme
 package utils
 
 import (
@@ -11,7 +11,7 @@ import (
 	"github.com/schollz/progressbar/v3"
 )
 
-// Permet de nettoyer la console
+// ClearConsole Permet de nettoyer la console
 func ClearConsole() {
 	cmd := exec.Command("clear")
 	cmd.Stdout = os.Stdout
@@ -20,7 +20,7 @@ func ClearConsole() {
 	}
 }
 
-// Permet de créer une progress bar
+// CreateProgressBar Permet de créer une progress bar
 func CreateProgressBar(description string) {
 	bar := progressbar.NewOptions(100,
 		progressbar.OptionSetDescription(description))
@@ -30,8 +30,8 @@ func CreateProgressBar(description string) {
 	}
 }
 
-// Permet de checker une erreur
-func checkError(err error) {
+// CheckError Permet de checker une erreur
+func CheckError(err error) {
 	if err != nil {
 		log.Fatal(err)
 	}

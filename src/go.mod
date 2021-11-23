@@ -9,6 +9,8 @@ require (
 	github.com/daviddengcn/go-colortext v0.0.0-20180409174941-186a3d44e920 // indirect
 	github.com/dixonwille/wlog/v3 v3.0.1 // indirect
 	github.com/dixonwille/wmenu/v5 v5.1.0 // indirect
+	github.com/fatih/color v1.13.0 // indirect
+	github.com/mattn/go-colorable v0.1.9 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/mattn/go-runewidth v0.0.13 // indirect
 	github.com/mattn/go-sqlite3 v1.14.9 // indirect
