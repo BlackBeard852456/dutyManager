@@ -72,6 +72,20 @@ func SearchDutyInTheDatabase(databaseConnection *sql.DB, nameDuty string) []Duty
 	return dutys
 }
 
+// Permet de récupérer tous les devoirs
+func GetAllDutys(databaseConnection *sql.DB) []Duty {
+	rows, err := databaseConnection.Query("SELECT * FROM duty")
+	defer rows.Close()
+	utils.CheckError(err)
+	dutys := make([]Duty, 0)
+	for rows.Next() {
+		ourDuty := Duty{}
+		err = rows.Scan(&ourDuty.id, &ourDuty.name, &ourDuty.entilted, &ourDuty.matter)
+		dutys = append(dutys, ourDuty)
+	}
+	return dutys
+}
+
 // Affiche des devoirs
 func DisplayDutys(dutys []Duty) {
 	for _, duty := range dutys {
