@@ -1,35 +1,18 @@
-ID => 3 
-NOM => A
-
-INTITULE => a
-
-MATIERE => 
+ID => 16 
+NOM => ZZ
+INTITULE => ZZ
+MATIERE => COMMU
+DATE LIMITE => 
 ------------------------ 
-ID => 5 
-NOM => a
-
-INTITULE => a
-
-MATIERE => 
+ID => 17 
+NOM => Lesson 17
+INTITULE => Faire de la prog
+MATIERE => Programmation
+DATE LIMITE => 
 ------------------------ 
-ID => 7 
-NOM => BBobo
-
-INTITULE => aq
-
-MATIERE => Francais
------------------------- 
-ID => 14 
-NOM => JORUS
-
+ID => 18 
+NOM => Salut
 INTITULE => 14
-
 MATIERE => Francais
------------------------- 
-ID => 15 
-NOM => Travis
-
-INTITULE => 99
-
-MATIERE => Anglais
+DATE LIMITE => 
 ------------------------ 

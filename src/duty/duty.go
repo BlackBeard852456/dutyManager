@@ -14,21 +14,27 @@ import (
 )
 
 type Duty struct {
-	id       int
-	name     string
-	entilted string
-	matter   string
+	id        int
+	name      string
+	entilted  string
+	matter    string
+	limitDate string
 }
 
 // CreateNewDuty Fonction qui permet de créer un nouveau devoir
 func CreateNewDuty() Duty {
-	reader := bufio.NewReader(os.Stdin)
+	scanner := bufio.NewScanner(os.Stdin)
 	fmt.Print("Entre le nom du devoir : ")
-	dutyName, _ := reader.ReadString('\n')
+	scanner.Scan()
+	dutyName := scanner.Text()
 	fmt.Print("Entre l'intitulé du devoir : ")
-	dutyEntilted, _ := reader.ReadString('\n')
+	scanner.Scan()
+	dutyEntilted := scanner.Text()
 	dutyMatter := mattersManagement()
-	return Duty{name: dutyName, entilted: dutyEntilted, matter: dutyMatter}
+	fmt.Print("Entre la date limite de celui-ci : ")
+	scanner.Scan()
+	dutyLimitDate := scanner.Text()
+	return Duty{name: dutyName, entilted: dutyEntilted, matter: dutyMatter, limitDate: dutyLimitDate}
 }
 
 // Function qui gère le choix de la matière
@@ -65,7 +71,7 @@ func SearchDutyInTheDatabase(databaseConnection *sql.DB, nameDuty string) []Duty
 	dutys := make([]Duty, 0)
 	for rows.Next() {
 		ourDuty := Duty{}
-		err = rows.Scan(&ourDuty.id, &ourDuty.name, &ourDuty.entilted, &ourDuty.matter)
+		err = rows.Scan(&ourDuty.id, &ourDuty.name, &ourDuty.entilted, &ourDuty.matter, &ourDuty.limitDate)
 		utils.CheckError(err)
 		dutys = append(dutys, ourDuty)
 	}
@@ -83,7 +89,7 @@ func GetAllDutys(databaseConnection *sql.DB) []Duty {
 	dutys := make([]Duty, 0)
 	for rows.Next() {
 		ourDuty := Duty{}
-		err = rows.Scan(&ourDuty.id, &ourDuty.name, &ourDuty.entilted, &ourDuty.matter)
+		err = rows.Scan(&ourDuty.id, &ourDuty.name, &ourDuty.entilted, &ourDuty.matter, &ourDuty.limitDate)
 		dutys = append(dutys, ourDuty)
 	}
 	return dutys
@@ -114,6 +120,7 @@ func WriteAllDutysInFile(nameFile string, allDutys []Duty) {
 		w.WriteString("NOM => " + duty.name + "\n")
 		w.WriteString("INTITULE => " + duty.entilted + "\n")
 		w.WriteString("MATIERE => " + duty.matter + "\n")
+		w.WriteString("DATE LIMITE => " + duty.limitDate + "\n")
 		w.WriteString("------------------------ \n")
 	}
 	w.Flush()
