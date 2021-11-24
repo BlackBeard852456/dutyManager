@@ -36,3 +36,12 @@ func CheckError(err error) {
 		log.Fatal(err)
 	}
 }
+
+// Execute une commande shell
+func ExecCommand(name string, args []string) {
+	cmd := exec.Command(name, args...)
+	cmd.Stdout = os.Stdout
+	if err := cmd.Run(); err != nil {
+		CheckError(err)
+	}
+}

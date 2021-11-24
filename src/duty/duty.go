@@ -104,6 +104,8 @@ func WriteAllDutysInFile(allDutys []Duty) {
 	_, err = file.WriteString("Tous les devoirs\n")
 	utils.CheckError(err)
 	for _, duty := range allDutys {
+		_, err = file.WriteString("#########################\n")
+		utils.CheckError(err)
 		_, err = file.WriteString(fmt.Sprintf("id => %d\n", duty.id))
 		utils.CheckError(err)
 		_, err = file.WriteString("Nom => " + duty.name + "\n")
@@ -111,8 +113,6 @@ func WriteAllDutysInFile(allDutys []Duty) {
 		_, err = file.WriteString("Intitulé => " + duty.entilted + "\n")
 		utils.CheckError(err)
 		_, err = file.WriteString("Matière => " + duty.matter + "\n")
-		utils.CheckError(err)
-		_, err = file.WriteString("#########################\n")
 		utils.CheckError(err)
 	}
 }

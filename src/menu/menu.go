@@ -69,7 +69,7 @@ func HandleMenu(db *sql.DB, choiceMenu int) {
 	case 5:
 		allDutys := duty.GetAllDutys(db)
 		duty.WriteAllDutysInFile(allDutys)
-		duty.DisplayDutys(allDutys)
+		utils.ExecCommand("less", []string{"dutys.data"})
 	case 6:
 		fmt.Println("Merci d'avoir utiliser DutyManager !")
 		os.Exit(3)
