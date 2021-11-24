@@ -97,6 +97,26 @@ func DisplayDutys(dutys []Duty) {
 	}
 }
 
+func WriteAllDutysInFile(allDutys []Duty) {
+	file, err := os.OpenFile("dutys.data", os.O_CREATE|os.O_WRONLY, 0600)
+	defer file.Close()
+	utils.CheckError(err)
+	_, err = file.WriteString("Tous les devoirs\n")
+	utils.CheckError(err)
+	for _, duty := range allDutys {
+		_, err = file.WriteString(fmt.Sprintf("id => %d\n", duty.id))
+		utils.CheckError(err)
+		_, err = file.WriteString("Nom => " + duty.name + "\n")
+		utils.CheckError(err)
+		_, err = file.WriteString("Intitulé => " + duty.entilted + "\n")
+		utils.CheckError(err)
+		_, err = file.WriteString("Matière => " + duty.matter + "\n")
+		utils.CheckError(err)
+		_, err = file.WriteString("#########################\n")
+		utils.CheckError(err)
+	}
+}
+
 // Affiche un devoir
 func DisplayDuty(duty Duty) {
 	fmt.Println("#############################")

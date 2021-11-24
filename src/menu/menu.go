@@ -68,6 +68,7 @@ func HandleMenu(db *sql.DB, choiceMenu int) {
 		duty.DeleteDutyPerIdInTheDatabase(db, idDutyToDelete)
 	case 5:
 		allDutys := duty.GetAllDutys(db)
+		duty.WriteAllDutysInFile(allDutys)
 		duty.DisplayDutys(allDutys)
 	case 6:
 		fmt.Println("Merci d'avoir utiliser DutyManager !")
