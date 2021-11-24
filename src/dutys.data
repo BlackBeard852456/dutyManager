@@ -1,62 +1,35 @@
-Tous les devoirs
-#########################
-id => 2
-Nom => Lesson 16
-Intitulé => Présente un ament
-Matière => FER
-#########################
-id => 3
-Nom => A
+ID => 3 
+NOM => A
 
-Intitulé => a
+INTITULE => a
 
-Matière => 
-#########################
-id => 4
-Nom => a
+MATIERE => 
+------------------------ 
+ID => 5 
+NOM => a
 
-Intitulé => a
+INTITULE => a
 
-Matière => 
-#########################
-id => 5
-Nom => a
+MATIERE => 
+------------------------ 
+ID => 7 
+NOM => BBobo
 
-Intitulé => a
+INTITULE => aq
 
-Matière => 
-#########################
-id => 7
-Nom => BBobo
+MATIERE => Francais
+------------------------ 
+ID => 14 
+NOM => JORUS
 
-Intitulé => aq
+INTITULE => 14
 
-Matière => Francais
-#########################
-id => 8
-Nom => AMAMAPM
+MATIERE => Francais
+------------------------ 
+ID => 15 
+NOM => Travis
 
-Intitulé => a
+INTITULE => 99
 
-Matière => Programmation
-#########################
-id => 9
-Nom => ff
-
-Intitulé => ff
-
-Matière => Programmation
-#########################
-id => 10
-Nom => Etudier anglais pour exam
-
-Intitulé => Présenter orale
-
-Matière => Francais
-#########################
-id => 11
-Nom => Lesson 17
-
-Intitulé => Fait ta ptn de lecon
-
-Matière => COMMU
+MATIERE => Anglais
+------------------------ 

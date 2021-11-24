@@ -3,6 +3,7 @@ package utils
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
@@ -44,4 +45,16 @@ func ExecCommand(name string, args []string) {
 	if err := cmd.Run(); err != nil {
 		CheckError(err)
 	}
+}
+
+// Vérifie si un fichier est présent ou non
+func VerifFileIsPresent(nameFile string) bool {
+	files, err := ioutil.ReadDir("./")
+	CheckError(err)
+	for _, file := range files {
+		if file.Name() == nameFile {
+			return true
+		}
+	}
+	return false
 }

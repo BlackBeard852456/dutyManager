@@ -13,7 +13,6 @@ import (
 
 // PrintLogo Fonction qui permet d'afficher le logo
 func PrintLogo() {
-	utils.ClearConsole()
 	fmt.Println("##########################")
 	fmt.Println("Duty Manager (by amolixs)")
 	fmt.Println("##########################")
@@ -66,10 +65,12 @@ func HandleMenu(db *sql.DB, choiceMenu int) {
 		idDutyToDelete, err := strconv.Atoi(scanner.Text())
 		utils.CheckError(err)
 		duty.DeleteDutyPerIdInTheDatabase(db, idDutyToDelete)
+		utils.ClearConsole()
 	case 5:
+		nameFile := "./dutys.data"
 		allDutys := duty.GetAllDutys(db)
-		duty.WriteAllDutysInFile(allDutys)
-		utils.ExecCommand("less", []string{"dutys.data"})
+		duty.WriteAllDutysInFile(nameFile, allDutys)
+		utils.ExecCommand("less", []string{nameFile})
 	case 6:
 		fmt.Println("Merci d'avoir utiliser DutyManager !")
 		os.Exit(3)

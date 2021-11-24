@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/fatih/color"
 )
@@ -52,6 +53,8 @@ func AddDutyInTheDatabase(databaseConnection *sql.DB, newDuty Duty) {
 	utils.CreateProgressBar("Création du devoir")
 	stmt.Exec(nil, newDuty.name, newDuty.entilted, newDuty.matter)
 	color.Green("[+] Création du devoir terminé !")
+	time.Sleep(1 * time.Second)
+	utils.ClearConsole()
 }
 
 // Recherche un devoir dans la bdd
@@ -97,24 +100,23 @@ func DisplayDutys(dutys []Duty) {
 	}
 }
 
-func WriteAllDutysInFile(allDutys []Duty) {
-	file, err := os.OpenFile("dutys.data", os.O_CREATE|os.O_WRONLY, 0600)
-	defer file.Close()
-	utils.CheckError(err)
-	_, err = file.WriteString("Tous les devoirs\n")
-	utils.CheckError(err)
-	for _, duty := range allDutys {
-		_, err = file.WriteString("#########################\n")
-		utils.CheckError(err)
-		_, err = file.WriteString(fmt.Sprintf("id => %d\n", duty.id))
-		utils.CheckError(err)
-		_, err = file.WriteString("Nom => " + duty.name + "\n")
-		utils.CheckError(err)
-		_, err = file.WriteString("Intitulé => " + duty.entilted + "\n")
-		utils.CheckError(err)
-		_, err = file.WriteString("Matière => " + duty.matter + "\n")
-		utils.CheckError(err)
+// Ecrit tous les devoirs dans le ficher dutys.data
+func WriteAllDutysInFile(nameFile string, allDutys []Duty) {
+	if utils.VerifFileIsPresent(nameFile) {
+		utils.ExecCommand("rm", []string{nameFile})
 	}
+	file, err := os.OpenFile(nameFile, os.O_WRONLY|os.O_CREATE, 0644)
+	utils.CheckError(err)
+	defer file.Close()
+	w := bufio.NewWriter(file)
+	for _, duty := range allDutys {
+		w.WriteString(fmt.Sprintf("ID => %d \n", duty.id))
+		w.WriteString("NOM => " + duty.name + "\n")
+		w.WriteString("INTITULE => " + duty.entilted + "\n")
+		w.WriteString("MATIERE => " + duty.matter + "\n")
+		w.WriteString("------------------------ \n")
+	}
+	w.Flush()
 }
 
 // Affiche un devoir
@@ -134,7 +136,9 @@ func DeleteDutyPerIdInTheDatabase(databaseConnection *sql.DB, idDuty int) {
 	utils.CheckError(err)
 	utils.CreateProgressBar("Suppression du devoir")
 	color.Green("[+] Suppression du devoir terminé !")
-	defer stmt.Close()
+	time.Sleep(1 * time.Second)
+	utils.ClearConsole()
+	stmt.Close()
 }
 
 // Permet de récupérer un devoir grace a son identifiant
