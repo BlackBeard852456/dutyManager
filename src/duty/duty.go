@@ -100,11 +100,13 @@ func GetAllDutys(databaseConnection *sql.DB) []Duty {
 // Affiche des devoirs
 func DisplayDutys(dutys []Duty) {
 	for _, duty := range dutys {
-		fmt.Println("#############################")
-		fmt.Println("Id => ", duty.id)
-		fmt.Println("Nom => ", duty.name)
-		fmt.Println("Intitulé => ", duty.entilted)
-		fmt.Println("Matière => ", duty.matter)
+		color.Yellow("#############################")
+		color.Yellow(fmt.Sprintf("Id => %d", duty.id))
+		color.Yellow(fmt.Sprintf("Nom => %s", duty.name))
+		color.Yellow(fmt.Sprintf("Intitulé => %s", duty.entilted))
+		color.Yellow(fmt.Sprintf("Matière => %s", duty.matter))
+		color.Yellow(fmt.Sprintf("Date limite => %s", duty.limitDate))
+		color.Yellow("#############################")
 	}
 }
 

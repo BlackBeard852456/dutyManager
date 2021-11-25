@@ -1,15 +1,16 @@
-ID => 16 
-NOM => ZZ
-INTITULE => ZZ
-MATIERE => COMMU
+ID => 19 
+NOM => Salut
+INTITULE => SS
+MATIERE => Francais
+DATE LIMITE => 11-12-14
+------------------------ 
+ID => 20 
+NOM => 
+INTITULE => 
+MATIERE => Anglais
 DATE LIMITE => 
 ------------------------ 
-ID => 17 
-NOM => Lesson 17
-INTITULE => Faire de la prog
-MATIERE => Programmation
-DATE LIMITE => 
------------------------- 
+--------------- 
 ID => 18 
 NOM => Salut
 INTITULE => 14
