@@ -53,11 +53,11 @@ func mattersManagement() string {
 
 // AddDutyInTheDatabase Fonction qui permet d'ajouter le devoir dans la bdd
 func AddDutyInTheDatabase(databaseConnection *sql.DB, newDuty Duty) {
-	stmt, err := databaseConnection.Prepare("INSERT INTO duty (id, name, entilted, matter) VALUES (?, ?, ?, ?)")
+	stmt, err := databaseConnection.Prepare("INSERT INTO duty (id, name, entilted, matter, limitDate) VALUES (?, ?, ?, ?, ?)")
 	utils.CheckError(err)
 	defer stmt.Close()
 	utils.CreateProgressBar("Création du devoir")
-	stmt.Exec(nil, newDuty.name, newDuty.entilted, newDuty.matter)
+	stmt.Exec(nil, newDuty.name, newDuty.entilted, newDuty.matter, newDuty.limitDate)
 	color.Green("[+] Création du devoir terminé !")
 	time.Sleep(1 * time.Second)
 	utils.ClearConsole()
@@ -77,6 +77,8 @@ func SearchDutyInTheDatabase(databaseConnection *sql.DB, nameDuty string) []Duty
 	}
 	if len(dutys) == 0 {
 		color.Red("[!] Aucun devoir trouvé !")
+	} else {
+		color.Green(fmt.Sprintf("[+] %d devoirs trouvés !", len(dutys)))
 	}
 	return dutys
 }
