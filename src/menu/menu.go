@@ -67,7 +67,8 @@ func HandleMenu(db *sql.DB, choiceMenu int) {
 		duty.DeleteDutyPerIdInTheDatabase(db, idDutyToDelete)
 		utils.ClearConsole()
 	case 5:
-		nameFile := "dutys.data"
+		pathDutysDataFile := fmt.Sprintf("%s/.dutyManager/dutys.data", os.Getenv("HOME"))
+		nameFile := pathDutysDataFile
 		allDutys := duty.GetAllDutys(db)
 		duty.WriteAllDutysInFile(nameFile, allDutys)
 		utils.ExecCommand("less", []string{nameFile})
