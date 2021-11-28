@@ -23,9 +23,8 @@ func mainLoop(db *sql.DB) {
 
 // Function principal du programme
 func main() {
-	db, err := sql.Open("sqlite3", "/home/amolixs/.dutyManager/db.db")
-	dir, _ := os.Getwd()
-	fmt.Println(dir)
+	pathDatabase := fmt.Sprintf("%s/.dutyManager/db.db", os.Getenv("HOME"))
+	db, err := sql.Open("sqlite3", pathDatabase)
 	utils.CheckError(err)
 	mainLoop(db)
 	defer db.Close()
