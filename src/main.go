@@ -5,6 +5,8 @@ import (
 	"amolixs/menu"
 	"amolixs/utils"
 	"database/sql"
+	"fmt"
+	"os"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -21,7 +23,9 @@ func mainLoop(db *sql.DB) {
 
 // Function principal du programme
 func main() {
-	db, err := sql.Open("sqlite3", "db.db")
+	db, err := sql.Open("sqlite3", "/home/amolixs/.dutyManager/db.db")
+	dir, _ := os.Getwd()
+	fmt.Println(dir)
 	utils.CheckError(err)
 	mainLoop(db)
 	defer db.Close()

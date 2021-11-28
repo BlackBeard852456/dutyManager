@@ -159,7 +159,7 @@ func GetDutyById(databaseConnection *sql.DB, idDuty string) Duty {
 	defer rows.Close()
 	dutyRetrieve := Duty{}
 	for rows.Next() {
-		rows.Scan(&dutyRetrieve.id, &dutyRetrieve.name, &dutyRetrieve.entilted, &dutyRetrieve.matter)
+		rows.Scan(&dutyRetrieve.id, &dutyRetrieve.name, &dutyRetrieve.entilted, &dutyRetrieve.matter, &dutyRetrieve.limitDate)
 	}
 	return dutyRetrieve
 }
@@ -174,16 +174,18 @@ func UpdateDuty(dutyToUpdate Duty) Duty {
 	scanner.Scan()
 	newEntilted := scanner.Text()
 	fmt.Printf("Matière (actuel) : %s >", dutyToUpdate.matter)
+	newMatter := mattersManagement()
+	fmt.Printf("Date limite (actuel) : %s >", dutyToUpdate.limitDate)
 	scanner.Scan()
-	newMatter := scanner.Text()
-	return Duty{id: dutyToUpdate.id, name: newName, entilted: newEntilted, matter: newMatter}
+	newLimitDate := scanner.Text()
+	return Duty{id: dutyToUpdate.id, name: newName, entilted: newEntilted, matter: newMatter, limitDate: newLimitDate}
 }
 
 // Met à jour un devoir dans la bdd
 func UpdateDutyInTheDatabase(databaseConnection *sql.DB, newDuty Duty) {
-	stmt, err := databaseConnection.Prepare("UPDATE duty set name = ?, entilted = ?, matter = ? WHERE id = ?")
+	stmt, err := databaseConnection.Prepare("UPDATE duty set name = ?, entilted = ?, matter = ?, limitDate = ? WHERE id = ?")
 	utils.CheckError(err)
 	defer stmt.Close()
-	stmt.Exec(newDuty.name, newDuty.entilted, newDuty.matter, newDuty.id)
+	stmt.Exec(newDuty.name, newDuty.entilted, newDuty.matter, newDuty.limitDate, newDuty.id)
 	color.Green("[+] Devoir mis à jour correctement !")
 }
